@@ -1,1 +1,43 @@
-<h3>Welcome</h3>
+<h3>Invoices</h3>
+
+<table class="table table-sm table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Invoice Day</th>
+      <th>Invoice Sent</th>
+      <th>Payment Due</th>
+      <th>Invoice Month</th>
+      <th>First SMS</th>
+      <th>Second SMS</th>
+      <th>Invoice Day</th>
+      <th>Invoice Sent</th>
+      <th>Amount Due</th>
+      <th>Paid Date</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+	<% @client.each do |invoice| %>
+	<tr>
+		<td><%= invoice['Name'] %></td>
+		<td><%= invoice['Invoice Day'] %></td>
+		<td><%= invoice['Invoice Sent'] %></td>
+		<td><%= invoice['Payment Due'] %></td>
+		<td><%= invoice['Invoice Month'] %></td>
+		<td><%= invoice['First SMS'] %></td>
+		<td><%= invoice['Second SMS'] %></td>
+		<td><%= invoice['Invoice Day'] %></td>
+		<td><%= invoice['Invoice Sent'] %></td>
+		<td><%= invoice['Amount Due'] %></td>
+		<td><%= invoice['Paid Date'] %></td>
+		<td><%= invoice['Notes'] %></td>
+		<td><%= link_to 'PDF', root_path, class: 'btn btn-sm btn-success' %>
+        <%= link_to 'Email', root_path, class: 'btn btn-sm btn-primary' %>
+        </td>
+	</tr>
+    <% end %>
+  </tbody>
+</table>
