@@ -33,6 +33,7 @@ gem 'pg'
 group :development do
   gem 'better_errors'
   gem 'rails_layout'
+  gem 'binding_of_caller'
   gem 'spring-commands-rspec'
 end
 group :development, :test do

@@ -29,6 +29,7 @@ class InvoicePdf < Prawn::Document
   
   def header
     text "청구서", size: 18, align: :center, :style=>:bold
+    # text "#{@invoice['Name']}"
     # invoice_to
     # recipient
     # invoice_month

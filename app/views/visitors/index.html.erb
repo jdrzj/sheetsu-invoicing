@@ -34,12 +34,10 @@
         <td><%= invoice['Amount Due'] %></td>
         <td><%= invoice['Paid Date'] %></td>
         <td><%= invoice['Notes'] %></td>
-        <td><%= link_to 'PDF', visitors_path(format: "pdf"), class: 'pdf btn btn-sm btn-success' %>
+        <td><%= link_to 'PDF', visitors_path(invoice, format: "pdf"), class: 'pdf btn btn-sm btn-success' %>
             <%= link_to 'Email', sendinvoice_visitors_path, class: 'btn btn-sm btn-primary' %>
         </td>
     	</tr>
     <% end %>
   </tbody>
 </table>
-
-<button class="btn btn-primary" id="convert-table">Convert!</button>

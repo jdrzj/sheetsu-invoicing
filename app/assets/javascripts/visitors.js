@@ -1,18 +1,19 @@
 $(document).ready(function(){
 	// Convert Sheetsu to JSON
-	$('#convert-table').click( function() {
-	  var table = $('#invoices').tableToJSON();
-	  console.log(JSON.stringify(table[0]));
-	  var data = table[0];
+	$('.pdf').click( function(e) {
+		
+		var table = $('#invoices').tableToJSON();
+		console.log(JSON.stringify(table[0]));
+		var data = table[0];
 		
 		// AJAX each PDF
 		$.ajax({
 		    dataType: "json",
-		    url: "/visitors/sendinvoice",
+		    url: "/visitors",
 		    type: "post",
 		    data: { "invoice" : data },
 		    success: function(json) {
-		    	alert('successfully');	
+		    	console.log(data);	
 		    }
 		});
 	});

@@ -7,7 +7,7 @@ class VisitorsController < ApplicationController
 	end
 
 	def show
-		@invoice = @invoice = params['invoice']
+		@invoice = params['invoice']
 	    respond_to do |format|
 	      format.html
 	      format.pdf do
@@ -17,6 +17,10 @@ class VisitorsController < ApplicationController
 	                              disposition: "inline"
 	      end
 	    end
+	end
+
+	def create
+		@invoice = params['invoice']
 	end
 
 	def b2b
