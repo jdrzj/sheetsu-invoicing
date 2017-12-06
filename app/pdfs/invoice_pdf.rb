@@ -10,8 +10,8 @@ class InvoicePdf < Prawn::Document
     font_update
     
     header
-    body 
-    footer
+    # body 
+    # footer
   end
 
 #------------------------------------------------------
@@ -29,31 +29,31 @@ class InvoicePdf < Prawn::Document
   
   def header
     text "청구서", size: 18, align: :center, :style=>:bold
-    invoice_to
-    recipient
-    invoice_month
-    invoice_due_date
+    # invoice_to
+    # recipient
+    # invoice_month
+    # invoice_due_date
   end
 
-  def invoice_to
-    move_down 20
-    text "#{@invoice.floor_id} 호"
-  end
+  # def invoice_to
+  #   move_down 20
+  #   text "#{@invoice['Name']}"
+  # end
 
-  def recipient 
-    move_up 10
-    text "#{@invoice.name} 귀하", align: :right
-  end
+  # def recipient 
+  #   move_up 10
+  #   text "#{@invoice.Name} 귀하", align: :right
+  # end
 
-  def invoice_month
-    move_down 10
-    text "#{@invoice.invoice_month}"
-  end
+  # def invoice_month
+  #   move_down 10
+  #   text "#{@invoice.invoice_month}"
+  # end
 
-  def invoice_due_date
-    move_up 10
-    text "납부기한 : #{@invoice.invoice_due_date}", align: :right
-  end
+  # def invoice_due_date
+  #   move_up 10
+  #   text "납부기한 : #{@invoice.invoice_due_date}", align: :right
+  # end
 
 #------------------------------------------------------
 

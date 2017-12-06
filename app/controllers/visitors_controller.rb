@@ -6,6 +6,19 @@ class VisitorsController < ApplicationController
 		@client = sheetsu.read(limit: 10)
 	end
 
+	def show
+		@invoice = @invoice = params['invoice']
+	    respond_to do |format|
+	      format.html
+	      format.pdf do
+	        pdf = InvoicePdf.new(@invoice)
+	        send_data pdf.render, filename: "Invoice.pdf",
+	                              type: "application/pdf",
+	                              disposition: "inline"
+	      end
+	    end
+	end
+
 	def b2b
 		sheetsu = Sheetsu::Client.new("439f368c9a0b")
 		@client = sheetsu.read
@@ -13,14 +26,14 @@ class VisitorsController < ApplicationController
 
 	def b2bform
 		sheetsu = Sheetsu::Client.new("439f368c9a0b")
-		sheetsu.create({ "foo" => "bar", "baz" => "quux" }, "Order History")
-
+		# CREATE NEW ROW FROM FORM SUBMIT on Order History Sheet
+		# sheetsu.create({ "foo" => "bar", "baz" => "quux" }, "Order History")
 	end
 
 	def sendinvoice
-		@invoice = params['data']
-		InvoiceMailer.send_invoice(@invoice).deliver_now
 		flash[:success] = 'Invoice was emailed.'
-		redirect_to root
+		@invoice = params['invoice']
+		# InvoiceMailer.send_invoice(@invoice).deliver_now
+		redirect_to root_path
 	end
 end

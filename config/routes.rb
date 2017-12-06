@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
   resources :visitors do
   	collection { get :sendinvoice }
+  	collection { get :show }
   end
 end

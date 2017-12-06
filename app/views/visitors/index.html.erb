@@ -1,6 +1,6 @@
-<h3>Invoices</h3>
+<h3 class="invoices">Invoices</h3>
 
-<table class="table table-sm table-bordered">
+<table class="table table-sm table-bordered" id="invoices">
   <thead>
     <tr>
       <th>Name</th>
@@ -20,24 +20,26 @@
 
 
   <tbody>
-	<% @client.each do |invoice| %>
-	<tr>
-		<td><%= invoice['Name'] %></td>
-		<td><%= invoice['Invoice Day'] %></td>
-		<td><%= invoice['Invoice Sent'] %></td>
-		<td><%= invoice['Payment Due'] %></td>
-		<td><%= invoice['Invoice Month'] %></td>
-		<td><%= invoice['First SMS'] %></td>
-		<td><%= invoice['Second SMS'] %></td>
-		<td><%= invoice['Invoice Day'] %></td>
-		<td><%= invoice['Invoice Sent'] %></td>
-		<td><%= invoice['Amount Due'] %></td>
-		<td><%= invoice['Paid Date'] %></td>
-		<td><%= invoice['Notes'] %></td>
-		<td><%= link_to 'PDF', root_path, class: 'btn btn-sm btn-success' %>
-        <%= link_to 'Email', root_path, class: 'btn btn-sm btn-primary' %>
+  	<% @client.each do |invoice| %>
+    	<tr>
+        <td><%= invoice['Name'] %></td>
+        <td><%= invoice['Invoice Day'] %></td>
+        <td><%= invoice['Invoice Sent'] %></td>
+        <td><%= invoice['Payment Due'] %></td>
+        <td><%= invoice['Invoice Month'] %></td>
+        <td><%= invoice['First SMS'] %></td>
+        <td><%= invoice['Second SMS'] %></td>
+        <td><%= invoice['Invoice Day'] %></td>
+        <td><%= invoice['Invoice Sent'] %></td>
+        <td><%= invoice['Amount Due'] %></td>
+        <td><%= invoice['Paid Date'] %></td>
+        <td><%= invoice['Notes'] %></td>
+        <td><%= link_to 'PDF', visitors_path(format: "pdf"), class: 'pdf btn btn-sm btn-success' %>
+            <%= link_to 'Email', sendinvoice_visitors_path, class: 'btn btn-sm btn-primary' %>
         </td>
-	</tr>
+    	</tr>
     <% end %>
   </tbody>
 </table>
+
+<button class="btn btn-primary" id="convert-table">Convert!</button>
