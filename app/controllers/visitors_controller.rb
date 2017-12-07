@@ -7,11 +7,12 @@ class VisitorsController < ApplicationController
 	end
 
 	def show
-		@invoice = params['invoice']
+		sheetsu = Sheetsu::Client.new("d67302530992")
+		@invoice = sheetsu.read(search: { id: params['id'] })
 	    respond_to do |format|
 	      format.html
 	      format.pdf do
-	        pdf = InvoicePdf.new(@invoice)
+	        pdf = InvoicePdf.new(@invoice[0])
 	        send_data pdf.render, filename: "Invoice.pdf",
 	                              type: "application/pdf",
 	                              disposition: "inline"

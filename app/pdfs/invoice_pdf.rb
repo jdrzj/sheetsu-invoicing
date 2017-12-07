@@ -3,14 +3,14 @@ class InvoicePdf < Prawn::Document
   TABLE_ROW_COLORS = ["FFFFFF","DDDDDD"]
   TABLE_FONT_SIZE = 9
   TABLE_WIDTHS = [20, 100, 30, 60]
-  
+
   def initialize(invoice)
     super(top_margin: 70)
     @invoice = invoice
     font_update
-    
+
     header
-    # body 
+    body
     # footer
   end
 
@@ -19,14 +19,14 @@ class InvoicePdf < Prawn::Document
   def font_update
     font_families.update(
       "Unbatang" => { :normal => Rails.root.join('app/assets/fonts/unbatang.ttf').to_s,
-                      :bold => Rails.root.join('app/assets/fonts/unbatangbold.ttf').to_s 
+                      :bold => Rails.root.join('app/assets/fonts/unbatangbold.ttf').to_s
                     }
     )
     font "Unbatang"
   end
 
 #------------------------------------------------------
-  
+
   def header
     text "청구서", size: 18, align: :center, :style=>:bold
     # text "#{@invoice['Name']}"
@@ -41,7 +41,7 @@ class InvoicePdf < Prawn::Document
   #   text "#{@invoice['Name']}"
   # end
 
-  # def recipient 
+  # def recipient
   #   move_up 10
   #   text "#{@invoice.Name} 귀하", align: :right
   # end
@@ -64,22 +64,40 @@ class InvoicePdf < Prawn::Document
   end
 
   def invoice_table
-    data = [[{:content => "항목", :colspan => 2, align: :center}, {:content => "금액", :colspan => 2, align: :center}],
 
-            [{:content => "임대료 관리비\n #{@invoice.electric_month}", :rowspan => 4, valign: :center, align: :center}, {:content => "임대료", align: :center}, {:content => "#{@invoice.rent}", :colspan => 2, align: :right}],
-            [{:content => "관리비", align: :center}, {:content => "#{@invoice.management_fee}", :colspan => 2, align: :right}],
-            [{:content => "부가세", align: :center}, {:content => "#{@invoice.tax_1}", :colspan => 2, align: :right}],
-            [{:content => "소계", align: :center}, {:content => "#{@invoice.subtotal_1}", :colspan => 2, align: :right}],
+    data = [
+      [
+        {:content => "항목", :colspan => 2, align: :center},
+        {:content => "금액", :colspan => 2, align: :center}
+      ],
+      [
+        {:content => "임대료 관리비\n #{@invoice['Name']}", :rowspan => 4, valign: :center, align: :center},
+        {:content => "임대료", align: :center},
+        {:content => "#{@invoice['Invoice Day']}", :colspan => 2, align: :right}
+      ],
+      [
+        {:content => "관리비", align: :center},
+        {:content => "#{@invoice['Invoice Sent']}", :colspan => 2, align: :right}
+      ],
+      [
+        {:content => "부가세", align: :center},
+        {:content => "#{@invoice['Payment Due']}", :colspan => 2, align: :right}
+      ],
+      [
+        {:content => "소계", align: :center},
+        {:content => "#{@invoice['Invoice Month']}", :colspan => 2, align: :right}
+      ],
+      [
+        {:content => "전기료: #{@invoice['Amout Due']}", :rowspan => 2, valign: :center, align: :center},
+        {:content => "전기료", align: :center, :colspan => 2, align: :right}
+      ],
+      [
+        {:content => "당월부과액", :colspan => 2, align: :center},
+        {:content => "#{@invoice['Paid Date']}", :colspan => 2, align: :right}
+      ]
+    ]
 
-            [{:content => "전기료\n #{@invoice.rent_usage_date}", :rowspan => 3, valign: :center, align: :center}, {:content => "전기료", align: :center}, {:content => "#{@invoice.electric_fee}", :colspan => 2, align: :right}],
-            [{:content => "부가세", align: :center}, {:content => "#{@invoice.tax_2}", :colspan => 2, align: :right}],
-            [{:content => "소계", align: :center}, {:content => "#{@invoice.subtotal_2}", :colspan => 2, align: :right}],
-
-            [{:content => "상하수도료", :colspan => 2, align: :center}, {:content => "#{@invoice.water_fee}", :colspan => 2, align: :right}],
-            [{:content => "당월부과액", :colspan => 2, align: :center}, {:content => "#{@invoice.total}", :colspan => 2, align: :right}]]
-
-    table data, :cell_style => { :width => 135 }, 
-                :position => :center
+    table data, :cell_style => { :width => 135 }, :position => :center
   end
 
 #------------------------------------------------------
