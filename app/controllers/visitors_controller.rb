@@ -25,11 +25,32 @@ class VisitorsController < ApplicationController
 	end
 
 	def b2b
+		@current_url = request.env['PATH_INFO']
+		@sheetsu_slug = "439f368c9a0b"
 		sheetsu = Sheetsu::Client.new("439f368c9a0b")
 		@client = sheetsu.read
+		data = @client
+		@columns = data[0].keys
+		@rows = data.map{ |row|
+			@columns.map{ |col|
+				row[col]
+			}
+		}
+		@form_inputs = @columns.map{ |col_name|
+			{
+				input_name: col_name,
+				input_type: 'text'
+			}
+		}
+		@form_inputs += [
+      {input_name: 'Timestamp', input_type: 'hidden'},
+      {input_name: 'Delivery Date', input_type: 'datetime-local'},
+      {input_name: 'Location', input_type: 'text'},
+      {input_name: 'Additional Requests', input_type: 'text'}
+    ]
 	end
 
-	def b2bform
+	def b2bform_submit
 		sheetsu = Sheetsu::Client.new("439f368c9a0b")
 		# CREATE NEW ROW FROM FORM SUBMIT on Order History Sheet
 		# sheetsu.create({ "foo" => "bar", "baz" => "quux" }, "Order History")
