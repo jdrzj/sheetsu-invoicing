@@ -1,3 +1,44 @@
 <h2>B2B</h2>
 
-<p><%= @client %></p>
+<table class="table table-sm table-bordered" id="invoices">
+  <thead>
+    <tr>
+      <% @columns.each do |col_name| %>
+      <th>
+        <%= col_name%>
+      </th>
+      <% end %>
+    </tr>
+  </thead>
+
+
+  <tbody>
+    <% @rows.each do |row| %>
+    <tr>
+      <% row.each do |value| %>
+      <td>
+        <%= value%>
+      </td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<hr>
+
+<form sheetsu="<%=@sheetsu_slug%>" sheetsu-after-submit="<%=@current_url%>" sheetsu-sheet="Order History">
+  <% @form_inputs.each do |input| %>
+    <div class="form-group">
+      <label for="<%= input[:input_name]%>"><%= input[:input_name]%>:</label>
+      <input type="<%= input[:input_type]%>" class="form-control" id="<%= input[:input_name]%>" name="<%= input[:input_name]%>">
+    </div>
+  <% end %>
+  <div class="form-group">
+    <input type="submit" class="form-control" name="submit">
+  </div>
+
+</form>
+
+<script src="//load.sheetsu.com"></script>
